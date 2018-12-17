@@ -1,0 +1,122 @@
+#include <iostream> 
+#include <math.h> 
+#include <iomanip> 
+#include <fstream> 
+#include <vector>
+using namespace std; 
+
+int quad(int **A,int n){
+	int mid=n/2;
+	int chet=n%2;
+	for (int i=0; i < n; i++) {
+		for (int j=0; j<n;j++) {
+			if (chet == 1){  
+				// Для нечетных
+				if (i+j==mid||
+					(n-i-1)+j==mid ||
+					(n-j-1)+i==mid ||
+					(n-i-1)+(n-j-1)==mid 
+				) {/*ничего не делаю*/}
+				else A[i][j] = 0;
+			} else {   
+				// Для четных
+				if (i+j+1==mid||
+					(n-i-0)+j==mid||
+					(n-j-0)+i== mid||
+					(n-i-0)+(n-j-1)==mid 
+				) {/*ничего не делаю*/}
+				else A[i][j]=0;
+			}
+
+
+		} 
+	}
+	return 0;
+}
+int vyc(int **A,int n){
+	//cout << endl << "печать ромба:" << endl;
+	int summ = 0;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+	//		cout << A[i][j] << " ";
+			summ += A[i][j];
+		}
+		cout << endl;
+	}
+	cout << endl << "Сумма ромба:" << summ << endl;
+	//g << endl << "Сумма ромба:" << summ << endl;
+	return summ;
+}
+void pec(int **A,int n){
+	cout << endl << "печать ромба:" << endl;
+	//g << endl << "печать ромба:" << endl;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			cout << A[i][j] << " ";
+	//		g << A[i][j] << " ";
+		}
+		cout << endl;
+	}
+}
+
+int main() {
+	setlocale(LC_ALL, "Russian");
+	fstream f,g;
+	g.open("out.txt", ios::out);
+	f.open("in1.txt", ios::in);
+	int n,sum,w;
+	char s;
+	cin>>n;
+	if (f.bad()!=0) cout<<"error\n";
+	int **A = new int* [n];   // создание массива
+	for (int a = 0; a < n; a++) {
+		A[a] = new int [n]; 
+		//cout << A[i];
+	}                                    
+	cout << endl << "Исходный массив из файла:" << endl;
+	g << endl << "Исходный массив из файла:" << endl;
+	int i=0, j=0;
+	while (true){
+		char* in;
+		char b = 'f';
+		in = &b;
+		f.read(in,1);
+		if (*in == ' ') continue;
+		if (i < n && j < n) 
+				A[j][i] = atoi(in);
+		if ( *in=='\r' || *in == '\n') {
+			j++; i = 0;
+			//cout << " \n";
+		}
+		else i++;
+		if (f.eof()) break;
+		cout << *in << " ";
+		g << *in << " ";
+	}
+	cout << endl << "Обрезанный массив:" << n << " * " << n << endl;
+	g << endl << "Обрезанный массив:" << n << " * " << n << endl;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			cout << A[i][j] << " ";
+			g << A[i][j] << " ";
+		}
+		cout << endl;
+		g << endl;
+	}
+	f.close();
+	// Создание ромба
+	quad(A,n);
+	// печать ромба
+	//int summ = pec(A,n);
+	pec(A,n);
+	// Вычисления
+	vyc(A,n);
+	for (int i = 0; i < n; i++) {
+		delete [] A[i];  // удаление
+	}
+	system("pause");
+	g.close();
+	return 0;
+}
+
+
