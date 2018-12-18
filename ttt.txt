@@ -32,6 +32,7 @@ int quad(int **A,int n){
 		} 
 	}
 	return 0;
+grwegauihgiueriuggerge
 }
 int vyc(int **A,int n){
 	//cout << endl << "печать ромба:" << endl;
