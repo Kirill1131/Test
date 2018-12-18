@@ -12,7 +12,7 @@ int quad(int **A,int n){
 		for (int j=0; j<n;j++) {
 			if (chet == 1){  
 				// Для нечетных
-				if (i+j==mid||
+				
 					(n-i-1)+j==mid ||
 					(n-j-1)+i==mid ||
 					(n-i-1)+(n-j-1)==mid 
@@ -31,7 +31,6 @@ int quad(int **A,int n){
 
 		} 
 	}
-	return 0;
 grwegauihgiueriuggerge
 }
 int vyc(int **A,int n){
